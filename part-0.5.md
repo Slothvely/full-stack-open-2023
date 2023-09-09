@@ -21,7 +21,10 @@ sequenceDiagram
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
       activate server
-    server-->>browser: The array of notes
+    server-->>browser: The JSON notes array
+    server-->>browser: Status code 200 and ready state 4
       deactivate server
+    Note right of browser: The browser translates the received JSON string to a JS object.
+    Note right of browser: The browser renders the notes list with redrawNotes().
 
 ```
