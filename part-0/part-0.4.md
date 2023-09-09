@@ -3,10 +3,10 @@ sequenceDiagram
   participant browser
   participant server
 
+     Note right of browser: User submits the form.
   browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
     activate server
-  server-->>browser: POST https://studies.cs.helsinki.fi/exampleapp/data.json
-    Note left of server: The server reads the data from body.req, creates a new note object and adds it to the note array.
+    Note left of server: The server reads the data from body.req and updates data.json.
   server-->>browser: Status code 302
     Note left of server: The server requests for the browser to do a new HTTP GET request.
     deactivate server
@@ -23,10 +23,11 @@ sequenceDiagram
   server-->>browser: The JS file
     deactivate server
     Note right of browser: The browser begins to execute the JavaScript code that fetches the JSON from the server.
-
   browser-->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
     activate server
-  server-->>browser: The array of notes
+  server-->>browser: The JSON notes array
+  server-->>browser: Status code 200 and ready code 4
     deactivate server
-    Note right of browser: The browser executes the callback function that renders the notes.
+    Note right of browser: The browser converts the JSON string into a JS object.
+    Note right of browser: The browser renders the notes list.
 ```
